@@ -25,13 +25,14 @@ export class MotoristaComponent implements OnInit {
 
   @ViewChild('formEditMotorista') formEditMotorista: NgForm;
 
+  public isEditMotorista: boolean = false;
+
   public motoristas: Array<Motorista> = [];
-  public motorista: Motorista = new Motorista();
+  public motoristaModel: Motorista = new Motorista();
   public loading: any = false;
   public loadingText: string = '';
 
-  modalActionsCreate = new EventEmitter<string|MaterializeAction>();
-  modalActionsEdit = new EventEmitter<string|MaterializeAction>();
+  modalActionsMotorista = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public router: Router,
@@ -46,6 +47,21 @@ export class MotoristaComponent implements OnInit {
 
   public ngOnInit() {
     this.listarMotoristas();
+  }
+
+  public submitFormMotorista(form) {
+    if(form.form.status === "VALID"){
+      console.log(this.motoristaModel);
+      if(this.isEditMotorista){
+        this.editarMotorista(this.motoristaModel);
+      }
+      else{
+        this.cadastrarMotorista(this.motoristaModel);
+      }
+    }
+    else{
+
+    }
   }
 
   public listarMotoristas() {
@@ -97,26 +113,19 @@ export class MotoristaComponent implements OnInit {
   }
   
   /** Cadastrar Motorista */
-  openModalCreate() {
-    this.modalActionsCreate.emit({action:"modal",params:['open']});
+  openModalMotorista(motorista = null) {
+    if (motorista === null) {
+      this.isEditMotorista = false;
+      this.motoristaModel = new Motorista();
+    }
+    else {
+      this.isEditMotorista = true;
+      this.motoristaModel = motorista;
+    }
+    this.modalActionsMotorista.emit({action:"modal",params:['open']});
   }
-  closeModalCreate() {
-    this.modalActionsCreate.emit({action:"modal",params:['close']});
-  }
-
-  /** Editar Motorista */
-  openModalEdit(motorista) { 
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_name;
-    this.formEditMotorista.form.controls.motorista_phone;
-    this.motorista = motorista;
-    this.modalActionsEdit.emit({action:"modal",params:['open']});
-  }
-  closeModalEdit(motorista) {
-    this.motorista = new Motorista();
-    this.modalActionsEdit.emit({action:"modal",params:['close']});
+  closeModalMotorista() {
+    this.modalActionsMotorista.emit({action:"modal",params:['close']});
   }
 
 }

@@ -22,6 +22,8 @@ import { CalendarioDiarioComponent } from './translado/calendario-diario/calenda
 import { CalendarioSemanalComponent } from './translado/calendario-semanal/calendario-semanal.component';
 import { CalendarioMensalComponent } from './translado/calendario-mensal/calendario-mensal.component';
 import { EstudanteComponent } from './estudante/estudante.component';
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { EstudanteComponent } from './estudante/estudante.component';
     CalendarioDiarioComponent,
     CalendarioSemanalComponent,
     CalendarioMensalComponent,
-    EstudanteComponent
+    EstudanteComponent,
+    AlterarSenhaComponent,
+    UsuarioComponent
   ],
   imports: [
     MaterializeModule,

@@ -1,7 +1,8 @@
 export class DiasSemana {
     constructor(
         public id: number = null,
-        public dia: string = ''
+        public dia: string = '',
+        public mes: string = ''
     ) {
     }
 }

@@ -25,8 +25,9 @@ import { TransferredService } from '../../../services/transferred.service';
   ]
 })
 export class EstudanteComponent implements OnInit {
-  public loading: any = false;
   public loadingText: string = '';
+
+  public motoristasList: any = { '': null };
 
   public isEditEstudante: boolean = false;
   public estudantes: Array<Estudante>;
