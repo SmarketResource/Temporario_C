@@ -12,7 +12,8 @@ import { Translado } from '../../../models/translado.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { StudentService } from '../../../services/student.service';
 import { TransferredService } from '../../../services/transferred.service';
-
+import { DriverVanService } from '../../../services/driver-van.service';
+import { Motorista } from '../../../models/motorista.model';
 
 @Component({
   selector: 'app-estudante',
@@ -21,12 +22,14 @@ import { TransferredService } from '../../../services/transferred.service';
   providers: [
     StudentService,
     TransferredService,
+    DriverVanService,
     Ng4LoadingSpinnerService
   ]
 })
 export class EstudanteComponent implements OnInit {
   public loadingText: string = '';
 
+  public motoristas: Array<Motorista>;
   public motoristasList: any = { '': null };
 
   public isEditEstudante: boolean = false;
@@ -45,14 +48,15 @@ export class EstudanteComponent implements OnInit {
     private spinnerServiceList: Ng4LoadingSpinnerService,
     private spinnerServiceForm: Ng4LoadingSpinnerService,
     private studentService: StudentService,
-    private transferredService: TransferredService
-    //private flashMessagesService: FlashMessagesService
+    private transferredService: TransferredService,
+    private driverVanService: DriverVanService
   ) {
 
   }
 
   public ngOnInit() {
     this.listarEstudantes();
+    this.listarMotoristas();
   }
 
   /** Listar Estudantes */
@@ -75,8 +79,6 @@ export class EstudanteComponent implements OnInit {
   }
 
   public submitFormEstudante(form) {
-    console.log(form);
-    console.log(form.form.status === "VALID");
     if (form.form.status === "VALID") {
       console.log(this.estudanteModel);
       if (this.isEditEstudante) {
@@ -181,7 +183,12 @@ export class EstudanteComponent implements OnInit {
   }
 
   public submitFormTranslado(form) {
-    console.log(form);
+    if (form.form.status === "VALID") {
+      this.cadastrarTranslado(this.transladoModel);
+    }
+    else {
+
+    }
   }
 
   /** Cadastrar translado */
@@ -191,6 +198,17 @@ export class EstudanteComponent implements OnInit {
     this.transferredService.setTransferred(translado).subscribe(
       resp => {
         this.spinnerServiceForm.hide();
+        if (resp['isSucceed']) {
+          toast('<span><i class="material-icons">notifications</i>&nbsp;Cadastro realizado com sucesso!</span>'
+            , 5000, 'light-green darken-2');
+          this.closeModalTranslado();
+        }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
         this.spinnerServiceForm.hide();
@@ -201,13 +219,42 @@ export class EstudanteComponent implements OnInit {
   }
 
   /** Ações modal cadastra e edita translado */
-  openModalTranslado() {
+  openModalTranslado(estudante) {
     this.transladoModel = new Translado();
+    this.transladoModel.studentId = estudante.studentId;
+    this.transladoModel.student = estudante.name + '-' + estudante.documento;
     this.modalActionsTranslado.emit({ action: "modal", params: ['open'] });
   }
 
   closeModalTranslado() {
     this.modalActionsTranslado.emit({ action: "modal", params: ['close'] });
+  }
+
+  public listarMotoristas() {
+    this.loadingText = 'Aguarde...';
+    this.spinnerServiceList.show();
+    this.driverVanService.getAllDriverVan().subscribe(
+      resp => {
+        this.spinnerServiceList.hide();
+        if (resp['isSucceed']) {
+          this.motoristas = resp['data'];
+          for (var i = 0; i < this.motoristas.length; i++) {
+            let motorista = this.motoristas[i].name;
+            this.motoristasList[motorista] = null;
+          }
+        }
+      },
+      err => {
+        this.spinnerServiceList.hide();
+        toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
+          , 5000, 'orange darken-3');
+      }
+    )
+  }
+
+  public changeMotorista() {
+    let motoristaSelecionado = this.motoristas.find(x => x.name == this.transladoModel.driver);
+    this.transladoModel.driverId = motoristaSelecionado.codDriverVan;
   }
 
 }

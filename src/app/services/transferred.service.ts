@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import * as moment from 'moment';
 import { HttpUtilService } from './http-util.service';
 
 // Observable class extensions
@@ -28,7 +28,19 @@ export class TransferredService {
 
     /** Cadastra Translado */
     setTransferred(translado): Observable<any[]> {
-        var params = translado;
+
+        translado.date = translado.date.replace('/', '-');
+        var dataFormat = moment(translado.date, "DD-MM-YYYY");
+        translado.date = dataFormat.format('YYYY') + '-' + dataFormat.format('MM') + '-' + dataFormat.format('DD');
+
+        var params = {
+            "driverId": translado.driverId,
+            "studentId": translado.studentId,
+            "place": translado.place,
+            "date": translado.date,
+            "timer": translado.timer
+        };
+
         return this.http.post(this.httpUtil.url(this.path), params, this.httpUtil.headers())
             .map(this.httpUtil.extrairDados)
             .catch(this.httpUtil.processarErros);

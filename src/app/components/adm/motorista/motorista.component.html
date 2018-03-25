@@ -118,8 +118,6 @@
   </a>
 </div>
 
-
-
 <!-- Modal Structure -->
 <div class="modal modal-fluid modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsMotorista">
   <form #formMotorista="ngForm" (ngSubmit)="submitFormMotorista(formMotorista)">
@@ -128,33 +126,45 @@
 
         <div class="row">
           <div class="col s12 m6 valign-wrapper">
-            <img class="header-img" src="./assets/img/icons/Motorista.svg"/>
-            <span class="header-modal"  [innerHTML]="!isEditMotorista ? 'Cadastrar Motorista' : 'Editar Motorista'"></span>
+            <img class="header-img" src="./assets/img/icons/Motorista.svg" />
+            <span class="header-modal" [innerHTML]="!isEditMotorista ? 'Cadastrar Motorista' : 'Editar Motorista'"></span>
           </div>
         </div>
-          
+
         <div class="divider"></div>
 
         <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <i class="material-icons prefix">person</i>
-            <input [(ngModel)]="motoristaModel.name" name="motorista_name" type="text">
+            <input [(ngModel)]="motoristaModel.name" name="motorista_name" type="text" required>
             <label for="icon_prefix">Nome</label>
+            <small *ngIf="((formMotorista.form.controls.motorista_name && formMotorista.controls.motorista_name.touched) || formMotorista.submitted) && !formMotorista.controls.motorista_name.valid">
+              <span class="error-custom">Campo Nome obrigatório!</span>
+            </small>
           </div>
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <i class="material-icons prefix">email</i>
-            <input [(ngModel)]="motoristaModel.email" name="motorista_email" type="text">
+            <input [(ngModel)]="motoristaModel.email" name="motorista_email" type="text" required>
             <label for="icon_telephone">Email</label>
+            <small *ngIf="((formMotorista.form.controls.motorista_email && formMotorista.controls.motorista_email.touched) || formMotorista.submitted) && !formMotorista.controls.motorista_email.valid">
+              <span class="error-custom">Campo Email obrigatório!</span>
+            </small>
           </div>
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <i class="material-icons prefix">phone</i>
-            <input [(ngModel)]="motoristaModel.phone" name="motorista_phone" type="text" placeholder="(00)00000-0000" mask="(00)00000-0000">
+            <input [(ngModel)]="motoristaModel.phone" name="motorista_phone" type="text" placeholder="(00)00000-0000" mask="(00)00000-0000"
+              required>
             <label for="icon_telephone">Telefone</label>
+            <small *ngIf="((formMotorista.form.controls.motorista_phone && formMotorista.controls.motorista_phone.touched) || formMotorista.submitted) && !formMotorista.controls.motorista_phone.valid">
+              <span class="error-custom">Campo Telefone obrigatório!</span>
+            </small>
           </div>
-          <div [hidden]="isEditMotorista" class="input-field col s12">
+          <div [hidden]="isEditMotorista" class="input-field col s12 m6">
             <i class="material-icons prefix">vpn_key</i>
-            <input [(ngModel)]="motoristaModel.password" name="motorista_password" type="text">
-            <label for="icon_telephone">Senha</label>
+            <input [(ngModel)]="motoristaModel.password" name="motorista_password" type="text" required>
+            <small *ngIf="((formMotorista.form.controls.motorista_password && formMotorista.controls.motorista_password.touched) || formMotorista.submitted) && !formMotorista.controls.motorista_password.valid">
+              <span class="error-custom">Campo Senha obrigatório!</span>
+            </small>
           </div>
         </div>
       </div>

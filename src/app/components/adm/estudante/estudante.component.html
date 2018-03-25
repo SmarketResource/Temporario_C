@@ -35,13 +35,13 @@
                     </div>
                   </td>
                   <td width="5%">
-                    <a class="btn-floating">
+                    <a class="btn-floating orange lighten-1 waves-effect waves-light">
                       <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
                     </a>
                   </td>
                   <td width="5%">
-                    <a class="btn-floating">
-                      <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
+                    <a class="btn-floating orange lighten-1 waves-effect waves-light">
+                      <i class="material-icons btn-edit" (click)="openModalTranslado(estudante)">directions_car</i>
                     </a>
                   </td>
                 </tr>
@@ -77,11 +77,11 @@
                 </div>
               </div>
               <div class="col s6 right-align">
-                <a class="btn-floating">
+                <a class="btn-floating orange lighten-1 waves-effect waves-light">
                   <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
                 </a>
-                <a class="btn-floating">
-                  <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">directions_car</i>
+                <a class="btn-floating orange lighten-1 waves-effect waves-light">
+                  <i class="material-icons btn-edit" (click)="openModalTranslado(estudante)">directions_car</i>
                 </a>
               </div>
             </div>
@@ -93,28 +93,28 @@
 
   <div class="center-align">
     <ul class="pagination">
-      <li class="disabled">
+      <li class="waves-effect">
         <a href="#!">
           <i class="material-icons">chevron_left</i>
         </a>
       </li>
-      <li class="active">
-        <a href="#!">1</a>
+      <li class="active blue darken-4">
+        <a href="javascript:void(0)">1</a>
       </li>
       <li class="waves-effect">
-        <a href="#!">2</a>
+        <a href="javascript:void(0)">2</a>
       </li>
       <li class="waves-effect">
-        <a href="#!">3</a>
+        <a href="javascript:void(0)">3</a>
       </li>
       <li class="waves-effect">
-        <a href="#!">4</a>
+        <a href="javascript:void(0)">4</a>
       </li>
       <li class="waves-effect">
-        <a href="#!">5</a>
+        <a href="javascript:void(0)">5</a>
       </li>
       <li class="waves-effect">
-        <a href="#!">
+        <a href="javascript:void(0)">
           <i class="material-icons">chevron_right</i>
         </a>
       </li>
@@ -123,7 +123,7 @@
 </section>
 
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red">
+  <a class="btn-floating btn-large blue darken-4">
     <i class="large material-icons" (click)="openModalEstudante()">add</i>
   </a>
 </div>
@@ -173,8 +173,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeModalEstudante()">Voltar</a>
-      <button class="btn waves-effect waves-light" type="submit" name="action">{{isEditEstudante ? 'Editar' : 'Salvar'}}
+      <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-blue btn-flat" (click)="closeModalEstudante()">Voltar</a>
+      <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="action">{{isEditEstudante ? 'Editar' : 'Salvar'}}
         <i class="material-icons right">send</i>
       </button>
     </div>
@@ -189,12 +189,17 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">location_on</i>
-          <input [(ngModel)]="transladoModel.place" name="translado_place" type="text">
+          <input [(ngModel)]="transladoModel.student" name="translado_student" type="text">
           <label for="icon_telephone">Estudante</label>
         </div>
         <div class="input-field col s11 m5">
           <i class="material-icons prefix">textsms</i>
-          <input [(ngModel)]="transladoModel.driverId" name="translado_driverId" type="text" materialize="autocomplete" [materializeParams]="[{'data': motoristasList}]">
+          <input  [(ngModel)]="transladoModel.driver" 
+                  name="translado_driver" 
+                  type="text" 
+                  materialize="autocomplete" 
+                  [materializeParams]="[{'data': motoristasList}]"
+                  (blur)="changeMotorista()">
           <label for="autocomplete-input">Motorista</label>
         </div>
         <div class="input-field col s12">
@@ -226,8 +231,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeModalTranslado()">Voltar</a>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+      <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-blue btn-flat" (click)="closeModalTranslado()">Voltar</a>
+      <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="action">Salvar
         <i class="material-icons right">send</i>
       </button>
     </div>

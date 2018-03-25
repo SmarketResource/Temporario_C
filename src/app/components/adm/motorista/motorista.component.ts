@@ -22,15 +22,12 @@ import { NgForm } from '@angular/forms';
   ]
 })
 export class MotoristaComponent implements OnInit {
-
-  @ViewChild('formEditMotorista') formEditMotorista: NgForm;
-
+  @ViewChild('formMotorista') formMotorista: NgForm;
+  public loadingText: string = '';
   public isEditMotorista: boolean = false;
 
   public motoristas: Array<Motorista> = [];
   public motoristaModel: Motorista = new Motorista();
-  public loading: any = false;
-  public loadingText: string = '';
 
   modalActionsMotorista = new EventEmitter<string|MaterializeAction>();
 
@@ -51,7 +48,6 @@ export class MotoristaComponent implements OnInit {
 
   public submitFormMotorista(form) {
     if(form.form.status === "VALID"){
-      console.log(this.motoristaModel);
       if(this.isEditMotorista){
         this.editarMotorista(this.motoristaModel);
       }
@@ -60,7 +56,8 @@ export class MotoristaComponent implements OnInit {
       }
     }
     else{
-
+      toast('<i class="material-icons">notifications</i>&nbsp;<span>Formulário inválido! Preencha todos os campos corretamente.</span>'
+      , 5000, 'orange darken-3');
     }
   }
 
