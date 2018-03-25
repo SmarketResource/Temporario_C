@@ -38,7 +38,8 @@ export class MotoristaComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    private spinnerService: Ng4LoadingSpinnerService,
+    private spinnerServiceList: Ng4LoadingSpinnerService,
+    private spinnerServiceForm: Ng4LoadingSpinnerService,
     private driverVanService: DriverVanService 
     //private flashMessagesService: FlashMessagesService
   ) {
@@ -66,16 +67,16 @@ export class MotoristaComponent implements OnInit {
 
   public listarMotoristas() {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceList.show();
     this.driverVanService.getAllDriverVan().subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceList.hide();
         if(resp['isSucceed']){
           this.motoristas = resp['data'];
         }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceList.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
@@ -84,13 +85,24 @@ export class MotoristaComponent implements OnInit {
 
   public cadastrarMotorista(form) {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceForm.show();
     this.driverVanService.setDriverVan(form.value).subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
+        if (resp['isSucceed']) {
+          this.listarMotoristas();      
+          toast('<span><i class="material-icons">notifications</i>&nbsp;cadastro realizada com sucesso!</span>'
+          , 5000, 'light-green darken-2');      
+        }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
@@ -99,13 +111,25 @@ export class MotoristaComponent implements OnInit {
 
   public editarMotorista(form) {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceForm.show();
     this.driverVanService.setDriverVan(form.value).subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
+        this.closeModalMotorista();
+        if (resp['isSucceed']) {
+          this.listarMotoristas();  
+          toast('<span><i class="material-icons">notifications</i>&nbsp;Edição realizada com sucesso!</span>'
+          , 5000, 'light-green darken-2');      
+        }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }

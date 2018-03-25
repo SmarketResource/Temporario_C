@@ -1,128 +1,132 @@
+<ng4-loading-spinner [threshold]="2000" [template]="" [loadingText]="loadingText" [zIndex]="9999">
+</ng4-loading-spinner>
+
 <!-- Modal Trigger -->
-<section *ngIf="estudantes && estudantes.length > 0" class="hide-on-small-only" id="#estudante">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <table>
-            <thead>
-              <tr>
-                <th width="30%">Nome</th>
-                <th width="30%">Email</th>
-                <th width="10%">Telefone</th>
-                <th width="20%"></th>
-                <th width="5%"></th>
-                <th width="5%"></th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let estudante of estudantes">
-              <tr>
-                <td width="25%" [innerHtml]="estudante.name != '' ? estudante.name : '-'"></td>
-                <td width="20%" [innerHtml]="estudante.email != '' ? estudante.email : '-'"></td>
-                <td width="20%" [innerHtml]="estudante.phone != '' ? estudante.phone : '-'"></td>
-                <td width="25%">
-                  <div class="switch">
-                    <label>
-                      Ativar
-                      <input type="checkbox">
-                      <span class="lever"></span>
-                      Desativar
-                    </label>
-                  </div>
-                </td>
-                <td width="5%">
-                  <a class="btn-floating">
-                    <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
-                  </a>
-                </td>
-                <td width="5%">
-                  <a class="btn-floating">
-                    <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<section *ngIf="estudantes && estudantes.length > 0" id="#estudante">
+  <div class="hide-on-small-only">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <table>
+              <thead>
+                <tr>
+                  <th width="30%">Nome</th>
+                  <th width="30%">Email</th>
+                  <th width="10%">Telefone</th>
+                  <th width="20%"></th>
+                  <th width="5%"></th>
+                  <th width="5%"></th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let estudante of estudantes">
+                <tr>
+                  <td width="25%" [innerHtml]="estudante.name != '' ? estudante.name : '-'"></td>
+                  <td width="20%" [innerHtml]="estudante.email != '' ? estudante.email : '-'"></td>
+                  <td width="20%" [innerHtml]="estudante.phone != '' ? estudante.phone : '-'"></td>
+                  <td width="25%">
+                    <div class="switch">
+                      <label>
+                        Ativar
+                        <input type="checkbox">
+                        <span class="lever"></span>
+                        Desativar
+                      </label>
+                    </div>
+                  </td>
+                  <td width="5%">
+                    <a class="btn-floating">
+                      <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+                    </a>
+                  </td>
+                  <td width="5%">
+                    <a class="btn-floating">
+                      <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<section class="hide-on-large-only" id="#estudante-mobile">
-  <div class="row">
-    <div class="col s12">
-      <div *ngFor="let estudante of estudantes" class="card">
-        <div class="card-content">
-          <p>
-            <strong>Nome:</strong>&nbsp;&nbsp;{{estudante.name != '' ? estudante.name : ''}}</p>
-          <p>
-            <strong>Email:</strong>&nbsp;&nbsp;{{estudante.email != '' ? estudante.email : ''}}</p>
-          <p>
-            <strong>Telefone:</strong>&nbsp;&nbsp;{{estudante.phone != '' ? estudante.phone : ''}}</p>
-        </div>
-        <div class="card-action" style="background-color:#f5f5f5">
-          <div class="row" style="margin-bottom: 0px;">
-            <div class="col s6">
-              <div class="switch">
-                <label>
-                  Ativar
-                  <input type="checkbox">
-                  <span class="lever"></span>
-                  Desativar
-                </label>
+  <div class="hide-on-large-only">
+    <div class="row">
+      <div class="col s12">
+        <div *ngFor="let estudante of estudantes" class="card">
+          <div class="card-content">
+            <p>
+              <strong>Nome:</strong>&nbsp;&nbsp;{{estudante.name != '' ? estudante.name : ''}}</p>
+            <p>
+              <strong>Email:</strong>&nbsp;&nbsp;{{estudante.email != '' ? estudante.email : ''}}</p>
+            <p>
+              <strong>Telefone:</strong>&nbsp;&nbsp;{{estudante.phone != '' ? estudante.phone : ''}}</p>
+          </div>
+          <div class="card-action" style="background-color:#f5f5f5">
+            <div class="row" style="margin-bottom: 0px;">
+              <div class="col s6">
+                <div class="switch">
+                  <label>
+                    Ativar
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                    Desativar
+                  </label>
+                </div>
               </div>
-            </div>
-            <div class="col s6 right-align">
-              <a class="btn-floating">
-                <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
-              </a>
-              <a class="btn-floating">
-                <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">directions_car</i>
-              </a>
+              <div class="col s6 right-align">
+                <a class="btn-floating">
+                  <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+                </a>
+                <a class="btn-floating">
+                  <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">directions_car</i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<section class="center-align">
-  <ul class="pagination">
-    <li class="disabled">
-      <a href="#!">
-        <i class="material-icons">chevron_left</i>
-      </a>
-    </li>
-    <li class="active">
-      <a href="#!">1</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!">2</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!">3</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!">4</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!">5</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!">
-        <i class="material-icons">chevron_right</i>
-      </a>
-    </li>
-  </ul>
-
-  <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
-      <i class="large material-icons" (click)="openModalEstudante()">add</i>
-    </a>
+  <div class="center-align">
+    <ul class="pagination">
+      <li class="disabled">
+        <a href="#!">
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+      <li class="active">
+        <a href="#!">1</a>
+      </li>
+      <li class="waves-effect">
+        <a href="#!">2</a>
+      </li>
+      <li class="waves-effect">
+        <a href="#!">3</a>
+      </li>
+      <li class="waves-effect">
+        <a href="#!">4</a>
+      </li>
+      <li class="waves-effect">
+        <a href="#!">5</a>
+      </li>
+      <li class="waves-effect">
+        <a href="#!">
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    </ul>
   </div>
 </section>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons" (click)="openModalEstudante()">add</i>
+  </a>
+</div>
 
 <!-- Modal form Estudantes -->
 <div class="modal modal-fluid modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsEstudante">
@@ -208,8 +212,8 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">date_range</i>
-            <input name="translado_timer" [(ngModel)]="transladoModel.timer" materialize="pickatime" 
-              [materializeParams]="[{twelvehour: false}]" type="text">
+            <input name="translado_timer" [(ngModel)]="transladoModel.timer" materialize="pickatime" [materializeParams]="[{twelvehour: false}]"
+              type="text">
             <label for="periodoDe" class="active">Hora</label>
           </div>
         </div>

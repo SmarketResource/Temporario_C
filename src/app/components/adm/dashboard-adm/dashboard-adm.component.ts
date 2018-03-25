@@ -13,16 +13,16 @@ export class DashboardAdmComponent implements OnInit {
   ngOnInit() {
   }
 
-  configurarLogs() {
-    this.router.navigate(['./adm/manage-status']);
+  configurarMotoristas() {
+    this.router.navigate(['./adm/motorista']);
   }
 
-  configurarSistemas() {
-    this.router.navigate(['./adm/manage-system']);
+  configurarAlunos() {
+    this.router.navigate(['./adm/estudante']);
   }
 
-  exibirMonitor() {
-    this.router.navigate(['./monitor']);
+  configurarTranslados() {
+    this.router.navigate(['./adm/translado']);
   }
 
 }

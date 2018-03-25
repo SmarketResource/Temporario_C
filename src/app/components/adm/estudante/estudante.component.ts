@@ -42,7 +42,8 @@ export class EstudanteComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    private spinnerService: Ng4LoadingSpinnerService,
+    private spinnerServiceList: Ng4LoadingSpinnerService,
+    private spinnerServiceForm: Ng4LoadingSpinnerService,
     private studentService: StudentService,
     private transferredService: TransferredService
     //private flashMessagesService: FlashMessagesService
@@ -57,16 +58,16 @@ export class EstudanteComponent implements OnInit {
   /** Listar Estudantes */
   public listarEstudantes() {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceList.show();
     this.studentService.getAllStudent().subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceList.hide();
         if (resp['isSucceed']) {
           this.estudantes = resp['data'];
         }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceList.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
@@ -93,13 +94,15 @@ export class EstudanteComponent implements OnInit {
   /** Cadastrar estudantes */
   private cadastrarEstudante(estudante) {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceForm.show();
     this.studentService.setStudent(estudante).subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         if (resp['isSucceed']) {    
           toast('<span><i class="material-icons">notifications</i>&nbsp;Cadastro realizado com sucesso!</span>'
-          , 5000, 'light-green darken-2');      
+          , 5000, 'light-green darken-2');
+          this.closeModalEstudante();
+          this.listarEstudantes();       
         }
         else {
           for (let item of resp["messages"]) {
@@ -109,7 +112,7 @@ export class EstudanteComponent implements OnInit {
         }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
@@ -119,13 +122,15 @@ export class EstudanteComponent implements OnInit {
   /** Editar estudantes */
   private editarEstudante(estudante) {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceForm.show();
     this.studentService.updateStudent(estudante).subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         if (resp['isSucceed']) {    
           toast('<span><i class="material-icons">notifications</i>&nbsp;Edição realizada com sucesso!</span>'
-          , 5000, 'light-green darken-2');      
+          , 5000, 'light-green darken-2');
+          this.closeModalEstudante();
+          this.listarEstudantes();       
         }
         else {
           for (let item of resp["messages"]) {
@@ -135,7 +140,7 @@ export class EstudanteComponent implements OnInit {
         }
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
@@ -182,13 +187,13 @@ export class EstudanteComponent implements OnInit {
   /** Cadastrar translado */
   private cadastrarTranslado(translado) {
     this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
+    this.spinnerServiceForm.show();
     this.transferredService.setTransferred(translado).subscribe(
       resp => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
       },
       err => {
-        this.spinnerService.hide();
+        this.spinnerServiceForm.hide();
         toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
           , 5000, 'orange darken-3');
       }
