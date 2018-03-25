@@ -149,11 +149,17 @@
           <i class="material-icons prefix">person</i>
           <input [(ngModel)]="estudanteModel.name" name="estudante_name" type="text" required>
           <label for="icon_telephone">Nome</label>
+          <small *ngIf="((formEstudante.form.controls.estudante_name && formEstudante.controls.estudante_name.touched) || formEstudante.submitted) && !formEstudante.controls.estudante_name.valid">
+            <span class="error-custom">Campo Nome obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s12 m6">
           <i class="material-icons prefix">face</i>
           <input [(ngModel)]="estudanteModel.nickName" name="estudante_nickName" type="text">
           <label for="icon_telephone">Apelido</label>
+          <small *ngIf="((formEstudante.form.controls.estudante_nickName && formEstudante.controls.estudante_nickName.touched) || formEstudante.submitted) && !formEstudante.controls.estudante_nickName.valid">
+            <span class="error-custom">Campo Apelido obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s12 m6">
           <i class="material-icons prefix">account_box</i>
@@ -164,11 +170,17 @@
           <i class="material-icons prefix">email</i>
           <input [(ngModel)]="estudanteModel.email" name="estudante_email" type="text">
           <label for="icon_telephone">Email</label>
+          <small *ngIf="((formEstudante.form.controls.estudante_email && formEstudante.controls.estudante_email.touched) || formEstudante.submitted) && !formEstudante.controls.estudante_email.valid">
+            <span class="error-custom">Campo Email obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s12 m6">
           <i class="material-icons prefix">phone</i>
           <input [(ngModel)]="estudanteModel.phone" name="estudante_phone" type="text" placeholder="(00)00000-0000" mask="(00)00000-0000">
           <label for="icon_telephone">Telefone</label>
+          <small *ngIf="((formEstudante.form.controls.estudante_phone && formEstudante.controls.estudante_phone.touched) || formEstudante.submitted) && !formEstudante.controls.estudante_phone.valid">
+            <span class="error-custom">Campo Telefone obrigatório!</span>
+          </small>
         </div>
       </div>
     </div>
@@ -191,6 +203,9 @@
           <i class="material-icons prefix">location_on</i>
           <input [(ngModel)]="transladoModel.student" name="translado_student" type="text">
           <label for="icon_telephone">Estudante</label>
+          <small *ngIf="((formTranslado.form.controls.translado_student && formTranslado.controls.translado_student.touched) || formTranslado.submitted) && !formTranslado.controls.translado_student.valid">
+            <span class="error-custom">Campo Estudante obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s11 m5">
           <i class="material-icons prefix">textsms</i>
@@ -201,11 +216,17 @@
                   [materializeParams]="[{'data': motoristasList}]"
                   (blur)="changeMotorista()">
           <label for="autocomplete-input">Motorista</label>
+          <small *ngIf="((formTranslado.form.controls.translado_driver && formTranslado.controls.translado_driver.touched) || formTranslado.submitted) && !formTranslado.controls.translado_driver.valid">
+            <span class="error-custom">Campo Motorista obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">location_on</i>
           <input [(ngModel)]="transladoModel.place" name="translado_place" id="icon_telephone" type="text">
           <label for="icon_telephone">Endereço</label>
+          <small *ngIf="((formTranslado.form.controls.translado_place && formTranslado.controls.translado_place.touched) || formTranslado.submitted) && !formTranslado.controls.translado_place.valid">
+            <span class="error-custom">Campo Endereço obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">date_range</i>
@@ -221,12 +242,18 @@
                                         weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ]
                                       }]">
           <label for="periodoDe" class="active">Data</label>
+          <small *ngIf="((formTranslado.form.controls.translado_date && formTranslado.controls.translado_date.touched) || formTranslado.submitted) && !formTranslado.controls.translado_date.valid">
+            <span class="error-custom">Campo Data obrigatório!</span>
+          </small>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">date_range</i>
           <input name="translado_timer" [(ngModel)]="transladoModel.timer" materialize="pickatime" [materializeParams]="[{twelvehour: false}]"
             type="text">
           <label for="periodoDe" class="active">Hora</label>
+          <small *ngIf="((formTranslado.form.controls.translado_timer && formTranslado.controls.translado_timer.touched) || formTranslado.submitted) && !formTranslado.controls.translado_timer.valid">
+            <span class="error-custom">Campo Hora obrigatório!</span>
+          </small>
         </div>
       </div>
     </div>

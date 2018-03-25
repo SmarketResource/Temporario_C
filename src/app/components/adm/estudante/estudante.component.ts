@@ -89,7 +89,8 @@ export class EstudanteComponent implements OnInit {
       }
     }
     else {
-
+      toast('<i class="material-icons">notifications</i>&nbsp;<span>Formulário inválido! Preencha todos os campos corretamente.</span>'
+      , 5000, 'orange darken-3');
     }
   }
 
@@ -187,7 +188,8 @@ export class EstudanteComponent implements OnInit {
       this.cadastrarTranslado(this.transladoModel);
     }
     else {
-
+      toast('<i class="material-icons">notifications</i>&nbsp;<span>Formulário inválido! Preencha todos os campos corretamente.</span>'
+      , 5000, 'orange darken-3');
     }
   }
 
