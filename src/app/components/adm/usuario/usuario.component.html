@@ -11,7 +11,15 @@
               <form #formUsuario="ngForm" (ngSubmit)="submitFormUsuario(formUsuario)">
                 <div class="row">
                   <div class="modal-content">
-                    <h4>Meu Perfil</h4>
+
+                      <div class="row"  style="margin-bottom: 0px;">
+                          <div class="col s12 m6 valign-wrapper">
+                              <i class="medium material-icons left">account_box</i>
+                              <h4>Meu Perfil</h4>
+                          </div>
+                      </div>
+
+                      <div class="divider"></div>
                     <div class="row">
                       <div class="input-field col s12">
                         <i class="material-icons prefix">person</i>
@@ -31,9 +39,11 @@
                     </div>
                   </div>
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
-                  <i class="material-icons right">send</i>
-                </button>
+                <div class="right-align">
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
               </form>
             </div>
           </div>
