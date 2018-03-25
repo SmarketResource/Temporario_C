@@ -77,16 +77,16 @@ export class EstudanteComponent implements OnInit {
   public submitFormEstudante(form) {
     console.log(form);
     console.log(form.form.status === "VALID");
-    if(form.form.status === "VALID"){
+    if (form.form.status === "VALID") {
       console.log(this.estudanteModel);
-      if(this.isEditEstudante){
+      if (this.isEditEstudante) {
         this.editarEstudante(this.estudanteModel);
       }
-      else{
+      else {
         this.cadastrarEstudante(this.estudanteModel);
       }
     }
-    else{
+    else {
 
     }
   }
@@ -98,11 +98,11 @@ export class EstudanteComponent implements OnInit {
     this.studentService.setStudent(estudante).subscribe(
       resp => {
         this.spinnerServiceForm.hide();
-        if (resp['isSucceed']) {    
+        if (resp['isSucceed']) {
           toast('<span><i class="material-icons">notifications</i>&nbsp;Cadastro realizado com sucesso!</span>'
-          , 5000, 'light-green darken-2');
+            , 5000, 'light-green darken-2');
           this.closeModalEstudante();
-          this.listarEstudantes();       
+          this.listarEstudantes();
         }
         else {
           for (let item of resp["messages"]) {
@@ -126,11 +126,11 @@ export class EstudanteComponent implements OnInit {
     this.studentService.updateStudent(estudante).subscribe(
       resp => {
         this.spinnerServiceForm.hide();
-        if (resp['isSucceed']) {    
+        if (resp['isSucceed']) {
           toast('<span><i class="material-icons">notifications</i>&nbsp;Edição realizada com sucesso!</span>'
-          , 5000, 'light-green darken-2');
+            , 5000, 'light-green darken-2');
           this.closeModalEstudante();
-          this.listarEstudantes();       
+          this.listarEstudantes();
         }
         else {
           for (let item of resp["messages"]) {

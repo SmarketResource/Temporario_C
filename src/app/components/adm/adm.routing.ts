@@ -10,6 +10,8 @@ import { ManageSystemComponent } from './manage-system/manage-system.component';
 import { MotoristaComponent } from './motorista/motorista.component';
 import { TransladoComponent } from './translado/translado.component';
 import { EstudanteComponent } from './estudante/estudante.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +37,14 @@ export const routes: Routes = [
       {
         path: 'translado',
         component: TransladoComponent
+      },
+      {
+        path: 'usuario',
+        component: UsuarioComponent
+      },
+      {
+        path: 'alterar-senha',
+        component: AlterarSenhaComponent
       },
       {
         path: 'manage-system',

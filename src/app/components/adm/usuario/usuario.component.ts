@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { toast } from 'angular2-materialize';
 
 /** Models */
-import { Motorista } from '../../../models/motorista.model'
+import { Usuario } from '../../../models/usuario.model'
 
 /** Services */
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -23,16 +23,11 @@ import { NgForm } from '@angular/forms';
 })
 export class UsuarioComponent implements OnInit {
 
-  @ViewChild('formEditMotorista') formEditMotorista: NgForm;
+  @ViewChild('formEditUsuario') formEditUsuario: NgForm;
 
-  public isEditMotorista: boolean = false;
-
-  public motoristas: Array<Motorista> = [];
-  public motoristaModel: Motorista = new Motorista();
+  public usuarioModel: Usuario = new Usuario();
   public loading: any = false;
   public loadingText: string = '';
-
-  modalActionsMotorista = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     public router: Router,
@@ -40,67 +35,28 @@ export class UsuarioComponent implements OnInit {
     public domSanitizer: DomSanitizer,
     private spinnerService: Ng4LoadingSpinnerService,
     private driverVanService: DriverVanService 
-    //private flashMessagesService: FlashMessagesService
   ) {
 
   }
 
   public ngOnInit() {
-    this.listarMotoristas();
+
   }
 
-  public submitFormMotorista(form) {
+  public submitFormUsuario(form) {
     if(form.form.status === "VALID"){
-      console.log(this.motoristaModel);
-      if(this.isEditMotorista){
-        this.editarMotorista(this.motoristaModel);
-      }
-      else{
-        this.cadastrarMotorista(this.motoristaModel);
-      }
+      console.log(this.usuarioModel);
+        this.editarUsuario(this.usuarioModel);
     }
     else{
 
     }
   }
 
-  public listarMotoristas() {
+  public editarUsuario(form) {
     this.loadingText = 'Aguarde...';
     this.spinnerService.show();
-    this.driverVanService.getAllDriverVan().subscribe(
-      resp => {
-        this.spinnerService.hide();
-        if(resp['isSucceed']){
-          this.motoristas = resp['data'];
-        }
-      },
-      err => {
-        this.spinnerService.hide();
-        toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
-          , 5000, 'orange darken-3');
-      }
-    )
-  }
-
-  public cadastrarMotorista(form) {
-    this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
-    this.driverVanService.setDriverVan(form.value).subscribe(
-      resp => {
-        this.spinnerService.hide();
-      },
-      err => {
-        this.spinnerService.hide();
-        toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
-          , 5000, 'orange darken-3');
-      }
-    )
-  }
-
-  public editarMotorista(form) {
-    this.loadingText = 'Aguarde...';
-    this.spinnerService.show();
-    this.driverVanService.setDriverVan(form.value).subscribe(
+    this.driverVanService.updateDriverVan(form.value).subscribe(
       resp => {
         this.spinnerService.hide();
       },
@@ -112,20 +68,4 @@ export class UsuarioComponent implements OnInit {
     )
   }
   
-  /** Cadastrar Motorista */
-  openModalMotorista(motorista = null) {
-    if (motorista === null) {
-      this.isEditMotorista = false;
-      this.motoristaModel = new Motorista();
-    }
-    else {
-      this.isEditMotorista = true;
-      this.motoristaModel = motorista;
-    }
-    this.modalActionsMotorista.emit({action:"modal",params:['open']});
-  }
-  closeModalMotorista() {
-    this.modalActionsMotorista.emit({action:"modal",params:['close']});
-  }
-
 }
