@@ -1,0 +1,73 @@
+<!-- LOADING -->
+<ng4-loading-spinner [threshold]="2000" [template]="" [loadingText]="loadingText" [zIndex]="9999">
+</ng4-loading-spinner>
+
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card card-custom ">
+
+      <!-- CABEÇALHO -->
+      <div class="card-header white-text red darken-1">
+        <h5 *ngIf="!isEdit" class="title">Adicionar Sistema</h5>
+        <h5 *ngIf="isEdit" class="title">Editar Sistema: {{sistema.nome}}</h5>
+        <p></p>
+      </div>
+
+      <div class="card-content ">
+
+        <!-- FORMULÁRIO CADASTRO SISTEMA -->
+        <form [formGroup]="formSystem" (ngSubmit)="onSubmit(formSystem.value)">
+
+          <div class="row">
+
+            <!-- COD SISTEMA -->
+            <div class="input-field col m3 offset-m1">
+              <i class="material-icons prefix">laptop_mac</i>
+              <input [formControl]="codSistema" name="codSistema" id="codSistema" type="text">
+              <label for="codSistema" class="active">Código</label>
+              <small *ngIf="formSystem.get('codSistema').touched">
+                <span class="error" *ngIf="formSystem.get('codSistema').hasError( 'required')">Código obrigatório!</span>
+                <span class="error" *ngIf="formSystem.get('codSistema').hasError('maxlength')">Máximo 3 caractéres!</span>
+              </small>
+            </div>
+            <!-- NOME SISTEMA -->
+            <div class="input-field col m7">
+              <i class="material-icons prefix">laptop_mac</i>
+              <input [formControl]="nome" name="nome" id="nome" type="text">
+              <label for="nome" class="active">Nome</label>
+              <small *ngIf="formSystem.get('nome').touched">
+                <span class="error" *ngIf="formSystem.get('nome').hasError( 'required')">Nome obrigatório!</span>
+                <span class="error" *ngIf="formSystem.get('nome').hasError('maxlength')">Máximo 255 caractéres!</span>
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- IMAGEM SISTEMA -->
+            <image-upload *ngIf="imagemUpload != ''" [max]="1" [extensions]="['jpeg','png']" buttonCaption="UPLOAD" dropBoxMessage="Adicionar imagem!" [uploadedFiles]="[{url: imagemUpload}]"
+            [beforeUpload]="onBeforeUpload" clearButtonCaption="REMOVER" [style]="customStyle" (removed)="onRemoved($event)" (uploadFinished)="onUploadFinished($event)"
+              (uploadStateChanged)="onUploadStateChanged($event)"></image-upload>
+              <image-upload *ngIf="imagemUpload == ''" [max]="1" [extensions]="['jpeg','png']" buttonCaption="UPLOAD" dropBoxMessage="Adicionar imagem!"
+              clearButtonCaption="REMOVER" [style]="customStyle" (removed)="onRemoved($event)" (uploadFinished)="onUploadFinished($event)"
+              (uploadStateChanged)="onUploadStateChanged($event)"></image-upload>
+          </div>
+
+          <!-- BOTÕES DE AÇÃO -->
+          <div class="divider"></div>
+          <br/>
+          <div class="row right-align">
+            <a class="waves-effect waves-light btn grey darken-2" (click)="voltar()">Voltar</a>
+            <button *ngIf="!isEdit" class="btn waves-effect waves-light light-blue darken-2" type="submit" name="action"> Adicionar
+              <i class="material-icons left">add_circle_outline</i>
+            </button>
+            <button *ngIf="isEdit" class="btn waves-effect waves-light light-blue darken-2" type="submit" name="action"> Editar
+              <i class="material-icons left">create</i>
+            </button>
+          </div>
+
+        </form>
+        <!-- FIM FORMULÁRIO CADASTRO SISTEMA -->
+      </div>
+    </div>
+  </div>
+</div>

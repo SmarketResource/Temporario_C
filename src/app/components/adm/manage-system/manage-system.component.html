@@ -1,0 +1,136 @@
+<ng4-loading-spinner [threshold]="2000" [template]="" [loadingText]="loadingText" [zIndex]="9999">
+</ng4-loading-spinner>
+
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card card-custom ">
+      <div class="card-header white-text red darken-1">
+        <h5 class="title">Gerenciar Sistemas</h5>
+      </div>
+      <div class="card-content ">
+
+        <!-- FILTROS E ADIÇÃO DE SISTEMAS -->
+        <div class="row">
+          <!--
+            <div class="col s6">
+              <select multiple materialize="material_select" [materializeSelectOptions]="sistemas" formControlName="myOption">
+                <option value="" disabled selected>Filtrar</option>
+                <option *ngFor="let sistema of sistemas" [ngValue]="sistema.codSistema">{{sistema.nome}}</option>
+              </select>
+            </div>
+          -->
+
+          <div class="col s4">
+            <a href="javascript:void(0)" class="waves-effect waves-light btn grey darken-2" (click)="adicionarSistema()">Adicionar Sistema</a>
+          </div>
+        </div>
+
+        <div *ngIf="sistemas.length > 0" class="row">
+          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+            <li *ngFor="let sistema of sistemas">
+
+              <div class="collapsible-header list-sistemas" (click)="getSistemaParametros(sistema.codSistema)">
+                <div class="row" style="width:100%; margin-bottom: 0px;">
+                  <div class="col s2">
+                    <img class="image-logo" [src]="sistema.imagem ? sistema.imagem : './assets/img/logotipos/logo-dpaschoal.png'">
+                  </div>
+                  <div class="col s8">
+                    <strong>{{sistema.codSistema}}</strong>&nbsp;-&nbsp;{{sistema.nome}}
+                  </div>
+                  <div class="col s2">
+                    <!-- cadastrar sistema -->
+                    <a materialize="tooltip" class="btn-floating radius tooltipped waves-effect waves-light grey darken-2" data-position="bottom"
+                      data-delay="50" data-tooltip="Editar" (click)="editarSistema(sistema)">
+                      <i class="material-icons">create</i>
+                    </a>&nbsp;&nbsp;&nbsp;
+                    <a materialize="tooltip" class="btn-floating radius tooltipped waves-effect waves-light grey darken-2" data-position="bottom"
+                      data-delay="50" data-tooltip="Excluir" (click)="openModal()">
+                      <i class="material-icons">delete_forever</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Excluir Sistema -->
+              <div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+                <div class="modal-content center">
+                  <div class="input-field col s12">
+                    <img style="width:10%;margin-bottom: 15px;" src="./assets/img/icons/error.svg">
+                  </div>
+                  <h5>Tem certeza que deseja exlcluir este sistema?</h5>
+                </div>
+                <div class="modal-footer">
+                  <a class="waves-effect waves-green btn-flat" (click)="excluirSistema(sistema.codSistema);">Sim</a>
+                  <a class="waves-effect waves-green btn-flat" (click)="closeModal();">Não</a>
+                </div>
+              </div>
+
+              <div class="collapsible-body grey lighten-5">
+
+                <a href="javascript:void(0)" class="waves-effect waves-light btn grey darken-2" (click)="adicionarUrl(sistema.codSistema)">Adicionar Url</a>
+
+                <table *ngIf="parametros.length > 0" class="striped bordered responsive-table white" style="margin-top:10px;">
+                  <thead>
+                    <tr>
+                      <th>URL</th>
+                      <th>Período</th>
+                      <th>Tempo Validação</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="" *ngFor="let parametro of parametros">
+                      <td style="width:40%">
+                        {{parametro.url}}
+                      </td>
+                      <td style="width:30%">{{parametro.periodoDe | date:'dd/MM/yyyy'}} até {{parametro.periodoAte | date:'dd/MM/yyyy'}}</td>
+                      <td style="width:10%">{{parametro.tempoValidacao | date: 'H:mm'}}</td>
+                      <td style="width:20%">
+                        <a materialize="tooltip" class="btn btn-floating tooltipped" data-position="bottom" data-delay="50" data-tooltip="Editar">
+                          <i class="material-icons waves-effect waves-light grey darken-2">create</i>
+                        </a>&nbsp;&nbsp;&nbsp;
+                        <a materialize="tooltip" class="btn btn-floating tooltipped" data-position="bottom" data-delay="50" data-tooltip="Excluir"
+                          (click)="excluirParametros(parametro.codSistemaParametro, parametro.codSistemaParametro)">
+                          <i class="material-icons waves-effect waves-light grey darken-2">delete_forever</i>
+                        </a>
+
+                        <!-- Modal Excluir Parametros -->
+                        <div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+                          <div class="modal-content center">
+                            <div class="input-field col s12">
+                              <img style="width:10%;margin-bottom: 15px;" src="./assets/img/icons/error.svg">
+                            </div>
+                            <h5>Tem certeza que deseja exlcluir este Parametro?</h5>
+                          </div>
+                          <div class="modal-footer">
+                            <a class="waves-effect waves-green btn-flat" (click)="excluirParametros(parametro.codSistemaParametro, parametro.codSistemaParametro);">Sim</a>
+                            <a class="waves-effect waves-green btn-flat" (click)="closeModal();">Não</a>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div *ngIf="!parametros.length > 0" class="row center-align">
+                  <strong>
+                    <h5 class="text-grey">Nenhuma url cadastrada!</h5>
+                  </strong>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="sistemas.length <= 0" class="row center-align">
+          <strong>
+            <h5 class="text-grey">Nenhum url cadastrado!</h5>
+          </strong>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

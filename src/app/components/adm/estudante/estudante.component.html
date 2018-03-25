@@ -1,0 +1,230 @@
+<!-- Modal Trigger -->
+<section *ngIf="estudantes && estudantes.length > 0" class="hide-on-small-only" id="#estudante">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <table>
+            <thead>
+              <tr>
+                <th width="25%">Nome</th>
+                <th width="20%">Email</th>
+                <th width="20%">Telefone</th>
+                <th width="25%"></th>
+                <th width="5%"></th>
+                <th width="5%"></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let estudante of estudantes">
+              <tr>
+                <td width="25%" [innerHtml]="estudante.name != '' ? estudante.name : '-'"></td>
+                <td width="20%" [innerHtml]="estudante.email != '' ? estudante.email : '-'"></td>
+                <td width="20%" [innerHtml]="estudante.phone != '' ? estudante.phone : '-'"></td>
+                <td width="25%">
+                  <div class="switch">
+                    <label>
+                      Ativar
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      Desativar
+                    </label>
+                  </div>
+                </td>
+                <td width="5%">
+                  <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+                </td>
+                <td width="5%">
+                  <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hide-on-large-only" id="#estudante-mobile">
+  <div class="row">
+    <div class="col s12">
+      <div *ngFor="let estudante of estudantes" class="card">
+        <div class="card-content">
+          <p>
+            <strong>Nome:</strong>&nbsp;&nbsp;{{estudante.name != '' ? estudante.name : ''}}</p>
+          <p>
+            <strong>Email:</strong>&nbsp;&nbsp;{{estudante.email != '' ? estudante.email : ''}}</p>
+          <p>
+            <strong>Telefone:</strong>&nbsp;&nbsp;{{estudante.phone != '' ? estudante.phone : ''}}</p>
+        </div>
+        <div class="card-action" style="background-color:#f5f5f5">
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Ativar
+                  <input type="checkbox">
+                  <span class="lever"></span>
+                  Desativar
+                </label>
+              </div>
+            </div>
+            <div class="col s6 right-align">
+              <a class="btn-floating">
+                <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+              </a>
+              <a class="btn-floating">
+                <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">directions_car</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="center-align">
+  <ul class="pagination">
+    <li class="disabled">
+      <a href="#!">
+        <i class="material-icons">chevron_left</i>
+      </a>
+    </li>
+    <li class="active">
+      <a href="#!">1</a>
+    </li>
+    <li class="waves-effect">
+      <a href="#!">2</a>
+    </li>
+    <li class="waves-effect">
+      <a href="#!">3</a>
+    </li>
+    <li class="waves-effect">
+      <a href="#!">4</a>
+    </li>
+    <li class="waves-effect">
+      <a href="#!">5</a>
+    </li>
+    <li class="waves-effect">
+      <a href="#!">
+        <i class="material-icons">chevron_right</i>
+      </a>
+    </li>
+  </ul>
+
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons" (click)="openModalEstudante()">add</i>
+    </a>
+  </div>
+</section>
+
+<!-- Modal form Estudantes -->
+<div class="modal modal-fluid modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsEstudante">
+
+  <form #formEstudante="ngForm" (ngSubmit)="submitFormEstudantes(formEstudante)">
+    <div class="row">
+      <div class="modal-content">
+        <h4 [innerHTML]="!isEditEstudante ? 'Cadastrar Estudante' : 'Editar Estudante'"></h4>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix">person</i>
+            <input [(ngModel)]="estudanteModel.name" name="estudante_name" type="text">
+            <label for="icon_telephone">Nome</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix">face</i>
+            <input [(ngModel)]="estudanteModel.nickName" name="estudante_nickName" type="text">
+            <label for="icon_telephone">Apelido</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix">account_box</i>
+            <input id="icon_telephone" type="text">
+            <label for="icon_telephone">Documento</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix">email</i>
+            <input [(ngModel)]="estudanteModel.email" name="estudante_email" type="text">
+            <label for="icon_telephone">Email</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="material-icons prefix">phone</i>
+            <input [(ngModel)]="estudanteModel.phone" name="estudante_phone" type="text">
+            <label for="icon_telephone">Telefone</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeModalCreateEstudante()">Voltar</a>
+      <button class="btn waves-effect waves-light" type="submit" name="action">{{isEditEstudante ? 'Editar' : 'Salvar'}}
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal form Translado -->
+<div class="modal modal-fluid modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsTranslado">
+  <form #formTranslado="ngForm" (ngSubmit)="submitFormTranslado(formTranslado)">
+    <div class="row">
+      <div class="modal-content">
+        <h4>Cadastrar Translado</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">location_on</i>
+            <input [(ngModel)]="transladoModel.place" name="translado_place" type="text">
+            <label for="icon_telephone">Estudante</label>
+          </div>
+          <div class="input-field col s11 m5">
+            <i class="material-icons prefix">textsms</i>
+            <input [(ngModel)]="transladoModel.driverId" name="translado_driverId" type="text" materialize="autocomplete" [materializeParams]="[{'data': motoristasList}]">
+            <label for="autocomplete-input">Motorista</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">location_on</i>
+            <input [(ngModel)]="transladoModel.place" name="translado_place" id="icon_telephone" type="text">
+            <label for="icon_telephone">Endereço</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">date_range</i>
+            <input  materialize="pickadate" 
+                    [(ngModel)]="transladoModel.date" 
+                    name="translado_date" 
+                    type="text" 
+                    class="datepicker" 
+                    [materializeParams]="[{   format: 'dd/mm/yyyy', 
+                                        closeOnSelect: false, 
+                                        clear: 'Limpar', 
+                                        close: 'OK', 
+                                        today: 'Hoje',
+                                        monthsShort: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                        monthsFull: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                        weekdaysShort: [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado' ],
+                                        weekdaysFull: [ 'Domingo', 'Segunda-Feira', 'Terca-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sabado' ],
+                                        weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ]
+                                      }]">
+            <label for="periodoDe" class="active">Data</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">date_range</i>
+            <input  name="translado_timer" 
+                    [(ngModel)]="transladoModel.timer" 
+                    materialize="pickatime" 
+                    [materializeActions]="birthTimeActions"
+                    [materializeParams]="[{twelvehour: false}]" 
+                    type="text">
+            <label for="periodoDe" class="active">Hora</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeModalCreateTranslado()">Voltar</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

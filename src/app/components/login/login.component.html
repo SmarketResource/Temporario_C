@@ -1,0 +1,65 @@
+<div class="container login" style="z-index:2">
+
+    <div class="section">
+  
+      <div class="row">
+        <div class="container-logo">
+          <img class="logotipo-login" src="./assets/img/logotipos/images.png">
+        </div>
+      </div>
+  
+      <!-- card login -->
+      <div class="row card-login">
+        <div class="col m6 offset-m3">
+          <div class="card z-depth-3">
+  
+            <!-- cabeçalho 
+            <div class="card-header center">
+              <h3 class="center">Pousada F7</h3>
+            </div>-->
+  
+            <!-- corpo -->
+            <div class="card-content">
+              <div class="row">
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+                  <div class="row">
+  
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">account_circle</i>
+                      <input [formControl]="login" id="login" name="login" id="icon_prefix" type="email">
+                      <label for="icon_prefix" class="active">Usuário</label>
+                      <small *ngIf="form.get('login').touched">
+                        <span class="error" *ngIf="form.get('login').hasError( 'required')">Login obrigatório</span>
+                      </small>
+                    </div>
+  
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">lock</i>
+                      <input [formControl]="password" id="password" name="password" id="password" type="password" autocomplete="new-password">
+                      <label for="password" class="active">Senha</label>
+                      <small *ngIf="form.get('password').touched">
+                        <span class="error" *ngIf="form.get('password').hasError( 'required')">Senha obrigatória</span>
+                      </small>
+                    </div>
+                  </div>
+  
+                  <div class="row center">
+                    <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">
+                      <i class="material-icons left">input</i>Entrar
+                    </button>
+                  </div>
+  
+                </form>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="teste1"></div>
+  <div class="teste"></div>
+  <!--<div class="teste2"></div>-->

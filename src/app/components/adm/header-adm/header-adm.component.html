@@ -1,0 +1,86 @@
+<nav class="hide-on-med-and-down">
+  <div class="nav-wrapper grey darken-2">
+    <a href="#" class="brand-logo">PousadaF7</a>
+    <ul class="right" id="nav-mobile" href="javascript:void(0)">
+      <li>
+        <a [routerLink]="['./dashboard-adm']" href="javascript:void(0)">
+          <i class="material-icons left">home</i>Home
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./motorista']" href="javascript:void(0)">
+          <i class="material-icons left">airport_shuttle</i>Motoristas
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./translado']" href="javascript:void(0)">
+          <i class="material-icons left">map</i>Translados
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./estudante']" href="javascript:void(0)">
+          <i class="material-icons left">school</i>Estudantes
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" (click)="deslogar()">
+          <i class="material-icons left">input</i>Sair
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="mobile-nav hide-on-large-only">
+  <div class="nav-wrapper grey darken-2">
+    <ul id="slide-out" class="side-nav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="images/office.jpg">
+          </div>
+          <a href="#!user">
+            <img class="circle" src="images/yuna.jpg">
+          </a>
+          <a href="#!name">
+            <span class="white-text name">John Doe</span>
+          </a>
+          <a href="#!email">
+            <span class="white-text email">jdandturk@gmail.com</span>
+          </a>
+        </div>
+      </li>
+      <li>
+        <a [routerLink]="['./dashboard-adm']" href="javascript:void(0)">
+          <i class="material-icons left">home</i>Home
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./motorista']" href="javascript:void(0)">
+          <i class="material-icons left">laptop_mac</i>Motoristas
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./translado']" href="javascript:void(0)">
+          <i class="material-icons left">build</i>Translados
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['./translado']" href="javascript:void(0)">
+          <i class="material-icons left">school</i>Estudantes
+        </a>
+      </li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li>
+        <a href="javascript:void(0)" (click)="deslogar()">
+          <i class="material-icons left">input</i>Sair
+        </a>
+      </li>
+    </ul>
+    <a materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="javascript:void(0)" data-activates="slide-out" class="button-collapse">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
+</nav>

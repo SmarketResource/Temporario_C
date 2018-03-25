@@ -1,0 +1,11 @@
+i.select-date{
+    position: absolute;
+    font-size: 2.5rem;
+    margin-top: 5px; 
+    cursor: pointer;   
+}
+
+.datepicker.select-date{
+    z-index: 999px;
+    margin-top: 2px;   
+}

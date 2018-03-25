@@ -1,0 +1,113 @@
+<!-- LOADING -->
+<ng4-loading-spinner [threshold]="2000" [template]="" [loadingText]="loadingText" [zIndex]="9999">
+</ng4-loading-spinner>
+
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card card-custom ">
+
+      <!-- CABEÇALHO -->
+      <div class="card-header white-text red darken-1">
+        <h5 *ngIf="isEdit" class="title">Editar URL</h5>
+        <h5 *ngIf="!isEdit" class="title">Adicionar URL</h5>
+        <p></p>
+      </div>
+
+      <div class="card-content ">
+
+        <!-- FORMULÁRIO CADASTRO URL -->
+        <form [formGroup]="formUrl" (ngSubmit)="onSubmit(formUrl.value)">
+
+          <div class="row">
+
+            <div class="col s6 m1">
+              <br/>
+              <p>
+                <input [formControl]="prefixUrl" value="1" class="with-gap" name="prefixoUrl" type="radio" id="prefixoHttp" />
+                <label for="prefixoHttp">http://</label>
+              </p>
+            </div>
+
+            <div class="col s6 m2">
+              <br/>
+              <p>
+                <input [formControl]="prefixUrl" value="2" class="with-gap" name="prefixoUrl" type="radio" id="prefixoHttps" />
+                <label for="prefixoHttps">https://</label>
+              </p>
+            </div>
+
+            <div class="input-field col s12 m9">
+              <i class="material-icons prefix">language</i>
+              <input [formControl]="url" id="url" name="url" type="text" (blur)="validaUrl()">
+              <label for="url" class="active">URL</label>
+              <small *ngIf="formUrl.get('url').touched">
+                <span class="error" *ngIf="formUrl.get('url').hasError( 'required')">Url obrigatório</span>
+              </small>
+            </div>
+
+            <div class="input-field col s4">
+              <i class="material-icons prefix">date_range</i>
+              <input materialize="pickadate" [formControl]="periodoDe" placeholder="dd/mm/yyyy" id="periodoDe" name="periodoDe" type="text"
+                class="datepicker" [materializeParams]="[{   format: 'dd/mm/yyyy', 
+                                            closeOnSelect: false, 
+                                            clear: 'Limpar', 
+                                            close: 'OK', 
+                                            today: 'Hoje',
+                                            monthsShort: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                            monthsFull: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                            weekdaysShort: [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado' ],
+                                            weekdaysFull: [ 'Domingo', 'Segunda-Feira', 'Terca-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sabado' ],
+                                            weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ]
+                                          }]">
+              <label for="periodoDe" class="active">De</label>
+              <small *ngIf="formUrl.get('periodoDe').touched">
+                <span class="error" *ngIf="formUrl.get('periodoDe').hasError( 'required')">Período de obrigatório</span>
+              </small>
+            </div>
+
+            <div class="input-field col s4">
+              <i class="material-icons prefix">date_range</i>
+              <input materialize="pickadate" [formControl]="periodoAte" placeholder="dd/mm/yyyy" id="periodoAte" name="periodoAte" type="password"
+                class="datepicker" [materializeParams]="[{ format: 'dd/mm/yyyy',    
+                                        closeOnSelect: false, 
+                                        clear: 'Limpar', 
+                                        close: 'OK', 
+                                        today: 'Hoje',
+                                        monthsShort: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                        monthsFull: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+                                        weekdaysShort: [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado' ],
+                                        weekdaysFull: [ 'Domingo', 'Segunda-Feira', 'Terca-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sabado' ],
+                                        weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ]}]">
+              <label for="periodoAte" class="active">Até</label>
+              <small *ngIf="formUrl.get('periodoAte').touched">
+                <span class="error" *ngIf="formUrl.get('periodoAte').hasError( 'required')">Período até obrigatório</span>
+              </small>
+            </div>
+
+            <div class="input-field col s4">
+              <i class="material-icons prefix">access_time</i>
+              <input [formControl]="tempoValidacao" id="tempoValidacao" placeholder="HH:mm" name="tempoValidacao" type="text" dropSpecialCharacters="false" mask="00:00">
+              <label for="icon_prefix" class="active">Tempo Validação</label>
+              <small *ngIf="formUrl.get('tempoValidacao').touched">
+                <span class="error" *ngIf="formUrl.get('tempoValidacao').hasError( 'required')">Tempo Validação Obrigatório!</span>
+              </small>
+            </div>
+
+          </div>
+          <div class="divider"></div>
+          <br/>
+          <div class="row right-align">
+            <a class="waves-effect waves-light btn grey darken-2" (click)="voltar()">Voltar</a>
+            <button *ngIf="isEdit" class="btn waves-effect waves-light light-blue darken-2" type="submit" name="action">Editar
+              <i class="material-icons left">create</i>
+            </button>
+            <button *ngIf="!isEdit" class="btn waves-effect waves-light light-blue darken-2" type="submit" name="action">Adicionar
+              <i class="material-icons left">add_circle_outline</i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
