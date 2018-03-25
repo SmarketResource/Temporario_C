@@ -35,18 +35,32 @@ export class DriverVanService {
 
     /** Cadastra motoristas */
     setDriverVan(driverVan): Observable<any[]> {
-
+        console.log(driverVan);
         var params = {
-            "name": driverVan.motorista_name,
-            "email": driverVan.motorista_email,
-            "phone": driverVan.motorista_phone,
-            "password": '12345678'
+            "name": driverVan.name,
+            "email": driverVan.email,
+            "phone": driverVan.phone,
+            "password": driverVan.password
         }
 
         return this.http.post(this.httpUtil.url(this.path), params, this.httpUtil.headers())
             .map(this.httpUtil.extrairDados)
             .catch(this.httpUtil.processarErros);
     }
+
+        /** Cadastra motoristas */
+        updateDriverVan(driverVan): Observable<any[]> {
+
+            var params = {
+                "name": driverVan.name,
+                "email": driverVan.email,
+                "phone": driverVan.phone
+            }
+    
+            return this.http.put(this.httpUtil.url(this.path), params, this.httpUtil.headers())
+                .map(this.httpUtil.extrairDados)
+                .catch(this.httpUtil.processarErros);
+        }
 
 }
 

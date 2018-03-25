@@ -30,9 +30,6 @@ export class AlterarSenhaComponent implements OnInit {
   public loading: any = false;
   public loadingText: string = '';
 
-  modalActionsCreate = new EventEmitter<string|MaterializeAction>();
-  modalActionsEdit = new EventEmitter<string|MaterializeAction>();
-
   constructor(
     public router: Router,
     private route: ActivatedRoute,
@@ -96,27 +93,5 @@ export class AlterarSenhaComponent implements OnInit {
     )
   }
   
-  /** Cadastrar Motorista */
-  openModalCreate() {
-    this.modalActionsCreate.emit({action:"modal",params:['open']});
-  }
-  closeModalCreate() {
-    this.modalActionsCreate.emit({action:"modal",params:['close']});
-  }
-
-  /** Editar Motorista */
-  openModalEdit(motorista) { 
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_email;
-    this.formEditMotorista.form.controls.motorista_name;
-    this.formEditMotorista.form.controls.motorista_phone;
-    this.motorista = motorista;
-    this.modalActionsEdit.emit({action:"modal",params:['open']});
-  }
-  closeModalEdit(motorista) {
-    this.motorista = new Motorista();
-    this.modalActionsEdit.emit({action:"modal",params:['close']});
-  }
 
 }

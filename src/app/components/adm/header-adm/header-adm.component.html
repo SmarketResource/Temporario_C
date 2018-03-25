@@ -73,7 +73,7 @@
         </a>
       </li>
       <li>
-        <a [routerLink]="['./translado']" href="javascript:void(0)">
+        <a [routerLink]="['./estudante']" href="javascript:void(0)">
           <i class="material-icons left">school</i>Estudantes
         </a>
       </li>
@@ -86,7 +86,7 @@
         </a>
       </li>
     </ul>
-    <a materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="javascript:void(0)" data-activates="slide-out" class="button-collapse">
+    <a materialize="sideNav" [materializeParams]="[{edge:'left',closeOnClick:true}]" href="javascript:void(0)" data-activates="slide-out" class="button-collapse">
       <i class="material-icons">menu</i>
     </a>
   </div>

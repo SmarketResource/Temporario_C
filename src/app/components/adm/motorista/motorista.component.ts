@@ -41,7 +41,6 @@ export class MotoristaComponent implements OnInit {
     private spinnerServiceList: Ng4LoadingSpinnerService,
     private spinnerServiceForm: Ng4LoadingSpinnerService,
     private driverVanService: DriverVanService 
-    //private flashMessagesService: FlashMessagesService
   ) {
 
   }
@@ -74,6 +73,12 @@ export class MotoristaComponent implements OnInit {
         if(resp['isSucceed']){
           this.motoristas = resp['data'];
         }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
         this.spinnerServiceList.hide();
@@ -83,16 +88,17 @@ export class MotoristaComponent implements OnInit {
     )
   }
 
-  public cadastrarMotorista(form) {
+  public cadastrarMotorista(motorista) {
     this.loadingText = 'Aguarde...';
     this.spinnerServiceForm.show();
-    this.driverVanService.setDriverVan(form.value).subscribe(
+    this.driverVanService.setDriverVan(motorista).subscribe(
       resp => {
         this.spinnerServiceForm.hide();
-        if (resp['isSucceed']) {
-          this.listarMotoristas();      
+        if (resp['isSucceed']) {     
           toast('<span><i class="material-icons">notifications</i>&nbsp;cadastro realizada com sucesso!</span>'
-          , 5000, 'light-green darken-2');      
+          , 5000, 'light-green darken-2');
+          this.closeModalMotorista();
+          this.listarMotoristas();       
         }
         else {
           for (let item of resp["messages"]) {
@@ -109,17 +115,17 @@ export class MotoristaComponent implements OnInit {
     )
   }
 
-  public editarMotorista(form) {
+  public editarMotorista(motorista) {
     this.loadingText = 'Aguarde...';
     this.spinnerServiceForm.show();
-    this.driverVanService.setDriverVan(form.value).subscribe(
+    this.driverVanService.updateDriverVan(motorista).subscribe(
       resp => {
         this.spinnerServiceForm.hide();
-        this.closeModalMotorista();
-        if (resp['isSucceed']) {
-          this.listarMotoristas();  
+        if (resp['isSucceed']) { 
           toast('<span><i class="material-icons">notifications</i>&nbsp;Edição realizada com sucesso!</span>'
-          , 5000, 'light-green darken-2');      
+          , 5000, 'light-green darken-2');    
+          this.closeModalMotorista();  
+          this.listarMotoristas(); 
         }
         else {
           for (let item of resp["messages"]) {
