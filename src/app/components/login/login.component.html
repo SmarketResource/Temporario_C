@@ -1,3 +1,6 @@
+<ng4-loading-spinner [threshold]="2000" [template]="" [loadingText]="loadingText" [zIndex]="9999">
+</ng4-loading-spinner>
+
 <div class="container login" style="z-index:2">
 
     <div class="section">
@@ -26,7 +29,7 @@
   
                     <div class="input-field col s12">
                       <i class="material-icons prefix">account_circle</i>
-                      <input [formControl]="login" id="login" name="login" id="icon_prefix" type="email">
+                      <input [formControl]="login" id="login" name="login" type="email">
                       <label for="icon_prefix" class="active">Usuário</label>
                       <small *ngIf="form.get('login').touched">
                         <span class="error" *ngIf="form.get('login').hasError( 'required')">Login obrigatório</span>
@@ -35,10 +38,16 @@
   
                     <div class="input-field col s12">
                       <i class="material-icons prefix">lock</i>
-                      <input [formControl]="password" id="password" name="password" id="password" type="password" autocomplete="new-password">
+                      <input  [formControl]="password" 
+                              name="password" 
+                              id="password" 
+                              type="password" 
+                              autocomplete="new-password"
+                              placeholder="********">
                       <label for="password" class="active">Senha</label>
                       <small *ngIf="form.get('password').touched">
-                        <span class="error" *ngIf="form.get('password').hasError( 'required')">Senha obrigatória</span>
+                        <span class="error" *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                        <span class="error" *ngIf="form.get('password').hasError('minlength')">Mínimo 8 caractéres</span>
                       </small>
                     </div>
                   </div>

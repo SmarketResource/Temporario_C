@@ -3,7 +3,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { toast } from 'angular2-materialize';
-//import { FlashMessagesService } from 'angular2-flash-messages/module';
+
+/** Services */
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,7 @@ import { toast } from 'angular2-materialize';
 
 export class LoginComponent implements OnInit {
   public form: FormGroup;
+  public loadingText: string = '';
 
   public login: AbstractControl;
   public password: AbstractControl;
@@ -25,12 +28,11 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     public fb: FormBuilder,
     public authenticationService: AuthenticationService,
-    //private flashMessagesService: FlashMessagesService
+    private spinnerService: Ng4LoadingSpinnerService
   ) {
-
     this.form = fb.group({
       login: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])]
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     })
 
     this.login = this.form.controls['login'];
@@ -48,7 +50,6 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(values: Object): void {
-
     if (this.form.valid) {
       this.autenticar(values);
     }
@@ -56,13 +57,14 @@ export class LoginComponent implements OnInit {
       this.login.markAsTouched();
       this.password.markAsTouched();
     }
-
   }
 
   public autenticar(acesso) {
+    this.loadingText = 'Autenticando...';
+    this.spinnerService.show();
     this.authenticationService.authentication(acesso).subscribe(
       autentica => {
-        console.log('autentica',autentica);
+        this.spinnerService.hide();
         if (autentica['isSucceed'] && autentica['data'].isAuthenticated) {
           this.router.navigate(['/adm']);
         }
@@ -70,17 +72,16 @@ export class LoginComponent implements OnInit {
           for (let item of autentica["messages"]) {
             toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
               , 5000, 'orange darken-3');
-          }
+         }
         }
       },
       err => {
-          toast('<span><i class="material-icons">notifications</i>&nbsp; Requisição Inválida! </span>'
-            , 5000, 'orange darken-3');
+        this.spinnerService.hide();
+        toast('<span><i class="material-icons">notifications</i>&nbsp; Requisição Inválida! </span>'
+          , 5000, 'orange darken-3');
       }
     )
   }
-
-  
 
 }
 
