@@ -7,10 +7,10 @@
           <table>
             <thead>
               <tr>
-                <th width="25%">Nome</th>
-                <th width="20%">Email</th>
-                <th width="20%">Telefone</th>
-                <th width="25%"></th>
+                <th width="30%">Nome</th>
+                <th width="30%">Email</th>
+                <th width="10%">Telefone</th>
+                <th width="20%"></th>
                 <th width="5%"></th>
                 <th width="5%"></th>
               </tr>
@@ -31,10 +31,14 @@
                   </div>
                 </td>
                 <td width="5%">
-                  <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+                  <a class="btn-floating">
+                    <i class="material-icons btn-edit" (click)="openModalEstudante(estudante)">create</i>
+                  </a>
                 </td>
                 <td width="5%">
-                  <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
+                  <a class="btn-floating">
+                    <i class="material-icons btn-edit" (click)="openModalTranslado()">directions_car</i>
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -123,14 +127,14 @@
 <!-- Modal form Estudantes -->
 <div class="modal modal-fluid modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsEstudante">
 
-  <form #formEstudante="ngForm" (ngSubmit)="submitFormEstudantes(formEstudante)">
+  <form #formEstudante="ngForm" name="formEstudante" (ngSubmit)="submitFormEstudante(formEstudante)">
     <div class="row">
       <div class="modal-content">
         <h4 [innerHTML]="!isEditEstudante ? 'Cadastrar Estudante' : 'Editar Estudante'"></h4>
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="material-icons prefix">person</i>
-            <input [(ngModel)]="estudanteModel.name" name="estudante_name" type="text">
+            <input [(ngModel)]="estudanteModel.name" name="estudante_name" type="text" required>
             <label for="icon_telephone">Nome</label>
           </div>
           <div class="input-field col s12 m6">
@@ -150,7 +154,7 @@
           </div>
           <div class="input-field col s12 m6">
             <i class="material-icons prefix">phone</i>
-            <input [(ngModel)]="estudanteModel.phone" name="estudante_phone" type="text">
+            <input [(ngModel)]="estudanteModel.phone" name="estudante_phone" type="text" placeholder="(00)00000-0000" mask="(00)00000-0000">
             <label for="icon_telephone">Telefone</label>
           </div>
         </div>
@@ -189,12 +193,7 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">date_range</i>
-            <input  materialize="pickadate" 
-                    [(ngModel)]="transladoModel.date" 
-                    name="translado_date" 
-                    type="text" 
-                    class="datepicker" 
-                    [materializeParams]="[{   format: 'dd/mm/yyyy', 
+            <input materialize="pickadate" [(ngModel)]="transladoModel.date" name="translado_date" type="text" class="datepicker" [materializeParams]="[{   format: 'dd/mm/yyyy', 
                                         closeOnSelect: false, 
                                         clear: 'Limpar', 
                                         close: 'OK', 
@@ -209,12 +208,8 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">date_range</i>
-            <input  name="translado_timer" 
-                    [(ngModel)]="transladoModel.timer" 
-                    materialize="pickatime" 
-                    [materializeActions]="birthTimeActions"
-                    [materializeParams]="[{twelvehour: false}]" 
-                    type="text">
+            <input name="translado_timer" [(ngModel)]="transladoModel.timer" materialize="pickatime" [materializeActions]="birthTimeActions"
+              [materializeParams]="[{twelvehour: false}]" type="text">
             <label for="periodoDe" class="active">Hora</label>
           </div>
         </div>

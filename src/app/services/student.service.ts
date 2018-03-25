@@ -34,14 +34,26 @@ export class StudentService {
     }
 
     setStudent(student): Observable<any[]> {
-        console.log(student);
         let params = {
-                "name": student.estudante_name,
-                "phone": student.estudante_phone,
-                "email": student.estudante_email,
-                "nickName": student.estudante_nickName
+                "name": student.name,
+                "phone": student.phone,
+                "email": student.email,
+                "nickName": student.nickName
         }
         return this.http.post(this.httpUtil.url(this.path), params, this.httpUtil.headers())
+            .map(this.httpUtil.extrairDados)
+            .catch(this.httpUtil.processarErros);
+    }
+
+    updateStudent(student): Observable<any[]> {
+        let params = {
+                "studentId": student.studentId,
+                "name": student.name,
+                "phone": student.phone,
+                "email": student.email,
+                "nickName": student.nickName
+        }
+        return this.http.put(this.httpUtil.url(this.path), params, this.httpUtil.headers())
             .map(this.httpUtil.extrairDados)
             .catch(this.httpUtil.processarErros);
     }

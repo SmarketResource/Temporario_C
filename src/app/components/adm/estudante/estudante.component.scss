@@ -1,12 +1,19 @@
-.collapsible-body{
-    padding: 10px;
+#estudante{
+    .collapsible-body{
+        padding: 10px;
+    }
+    
+    
+    .collapsible-header.list-sistemas i{
+        width: 2.5rem;
+    }
+    
+    .btn-edit{
+        cursor: pointer;
+    }
+
+    table tr{
+        border-bottom: solid 1px #ccc;
+    }
 }
 
-
-.collapsible-header.list-sistemas i{
-    width: 2.5rem;
-}
-
-.btn-edit{
-    cursor: pointer;
-}

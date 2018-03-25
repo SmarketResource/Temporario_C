@@ -74,6 +74,19 @@ export class EstudanteComponent implements OnInit {
 
   public submitFormEstudante(form) {
     console.log(form);
+    console.log(form.form.status === "VALID");
+    if(form.form.status === "VALID"){
+      console.log(this.estudanteModel);
+      if(this.isEditEstudante){
+        this.editarEstudante(this.estudanteModel);
+      }
+      else{
+        this.cadastrarEstudante(this.estudanteModel);
+      }
+    }
+    else{
+
+    }
   }
 
   /** Cadastrar estudantes */
@@ -83,6 +96,16 @@ export class EstudanteComponent implements OnInit {
     this.studentService.setStudent(estudante).subscribe(
       resp => {
         this.spinnerService.hide();
+        if (resp['isSucceed']) {    
+          toast('<span><i class="material-icons">notifications</i>&nbsp;Cadastro realizado com sucesso!</span>'
+          , 5000, 'light-green darken-2');      
+        }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
         this.spinnerService.hide();
@@ -96,9 +119,19 @@ export class EstudanteComponent implements OnInit {
   private editarEstudante(estudante) {
     this.loadingText = 'Aguarde...';
     this.spinnerService.show();
-    this.studentService.setStudent(estudante).subscribe(
+    this.studentService.updateStudent(estudante).subscribe(
       resp => {
         this.spinnerService.hide();
+        if (resp['isSucceed']) {    
+          toast('<span><i class="material-icons">notifications</i>&nbsp;Edição realizada com sucesso!</span>'
+          , 5000, 'light-green darken-2');      
+        }
+        else {
+          for (let item of resp["messages"]) {
+            toast('<span><i class="material-icons">notifications</i>&nbsp;' + item.description + '</span>'
+              , 5000, 'orange darken-3');
+          }
+        }
       },
       err => {
         this.spinnerService.hide();
@@ -107,6 +140,22 @@ export class EstudanteComponent implements OnInit {
       }
     )
   }
+
+  /** Editar estudantes */
+  // private ativarEstudante(estudante) {
+  //   this.loadingText = 'Aguarde...';
+  //   this.spinnerService.show();
+  //   this.studentService.activeStudent(estudante).subscribe(
+  //     resp => {
+  //       this.spinnerService.hide();
+  //     },
+  //     err => {
+  //       this.spinnerService.hide();
+  //       toast('<i class="material-icons">notifications</i>&nbsp;<span>Requisição Inválida!</span>'
+  //         , 5000, 'orange darken-3');
+  //     }
+  //   )
+  // }
 
   /** Ações modal cadastra e edita estudantes */
   openModalEstudante(estudante = null) {
