@@ -1,3 +1,11 @@
+
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">Perfil</a></li>
+  <li><a href="#!">Alterar Senha</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">Sair</a></li>
+</ul>
+
 <nav class="hide-on-med-and-down">
   <div class="nav-wrapper grey darken-2">
     <a href="#" class="brand-logo">PousadaF7</a>
@@ -23,8 +31,7 @@
         </a>
       </li>
       <li>
-        <a href="javascript:void(0)" (click)="deslogar()">
-          <i class="material-icons left">input</i>Sair
+        <a materialize="dropdown"  href='#' data-activates='dropdown1'><i class="material-icons right">account_circle</i>Name
         </a>
       </li>
     </ul>
